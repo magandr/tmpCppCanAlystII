@@ -9,7 +9,10 @@ include_directories(
 	3rdparty/Chuangxin/include
 )
 
-add_executable(tmpCppCanAlystII main.cpp)
+add_executable(tmpCppCanAlystII
+	main.cpp
+	canalyst.h canalyst.cpp
+)
 
 target_link_libraries(tmpCppCanAlystII PRIVATE
 	-lControlCAN -LC:/projects/tmp/tmpCppCanAlystII/3rdparty/Chuangxin/lib
