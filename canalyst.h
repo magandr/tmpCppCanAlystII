@@ -14,6 +14,9 @@ class CanAlyst
 public:
     CanAlyst();
     ~CanAlyst();
+
+private:
+    void sendFrame();
 };
 
 #endif // CANALYST_H
