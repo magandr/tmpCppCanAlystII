@@ -2,6 +2,8 @@
 #define CANALYST_H
 
 #include <iostream>
+#include <iomanip>
+
 #include <windows.h>
 #include "ControlCAN.h"
 

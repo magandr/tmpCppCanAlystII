@@ -79,7 +79,6 @@ void CanAlyst::sendFrame()
     sendbuf->Reserved[1] = 0;
     sendbuf->Reserved[2] = 0;
 
-
     int flag = VCI_Transmit( m_devtype, m_index, m_cannum, sendbuf, 1); //CAN message send
 
     if( flag < 1 ) {
@@ -90,22 +89,24 @@ void CanAlyst::sendFrame()
         return;
     }
 
-
-    std::cout << "VCI_Transmit successfule" << std::endl;
-//    Sleep(100);
+    std::cout << "VCI_Transmit successfule. Send TableT status ID 0x00000083" << std::endl;
 
     while (1) {
-        const int numberFrame = 0;
+        VCI_CAN_OBJ pCanObj[10];
 
-        VCI_CAN_OBJ pCanObj[numberFrame];
+        int numberFrame = VCI_Receive( m_devtype, m_index, m_cannum, pCanObj, 10, 0);
 
-        int NumValue = VCI_Receive( m_devtype, m_index, m_cannum, pCanObj, numberFrame, 10);
+        if( numberFrame > 0 ) {
 
-        if( NumValue > 0 ) {
-            for( int i; i < NumValue ; i++) {
-                std::cout << pCanObj->ID;
+            std::cout << "Receive " << numberFrame << " frames:" << std::endl;
+
+            for( int i{0}; i < numberFrame ; i++) {
+                std::cout << "\t receive ID (hex): " << std::hex << pCanObj->ID << std::endl;
             }
+
             return;
+        } else {
+            Sleep( 10 );
         }
     }
 }
